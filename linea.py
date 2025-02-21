@@ -1,5 +1,7 @@
+#es una biblioteca estandarizada en Python que brinda acceso a funciones y constantes matemáticas
 import math
-
+#Definiendo cada variable
+#Cada "return" significa enviar un valor de vuelta a la parte del programa que llamó a la función
 def CP4(RACH2):
     GR1 = 9.8
     return RACH2 * GR1
@@ -24,7 +26,7 @@ def HOD9(RACH2, ATZ7,  CF01):
 def CA4(RACH2, ATZ7,  CF01):
     FOR3 = HOD9(RACH2, ATZ7,  CF01)
     return FOR3 / RACH2
-
+#Inicio del menu
 def main():
     print("Seleccione qué desea calcular:")
     print("1. Peso")
@@ -32,9 +34,9 @@ def main():
     print("3. Fuerza de Fricción")
     print("4. Fuerza Neta")
     print("5. Aceleración")
-    
+    #Aclaracion cada "input" es una solicitud al usuario para llevar a cabo el funcionamiento del algoritmo
     opcion = input("Ingrese el número de la opción deseada: ")
-
+    # ".2f" indica el inicio del especificador de formato
     try:
         if opcion == '1':
             RACH2 = float(input("Ingrese la masa del objeto (kg): "))
@@ -70,7 +72,7 @@ def main():
         
         else:
             print("Opción no válida. Por favor, seleccione un número del 1 al 5.")
-
+#Si es ingresado algun dato no identificado el "except" va a arrojar el mensaje dicho anteriormente
     except ValueError:
         print("Por favor, ingrese valores numéricos válidos.")
 

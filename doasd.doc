@@ -6,16 +6,6 @@ Angulo = ATZ7
 Peso = PS02
 
 
-
-
-
-
-
-
-
-
-
-
 Parametros
 
 calcular_aceleracion= CA4
@@ -28,7 +18,7 @@ calcular_fuerza_net = HOD9
 
 fuerza_friccion = KOL5
 
-calcular_fuerza_friccion=FRE3
+ calcular_fuerza_friccion=FRE3
 
 coef_friccion = CF01
 
@@ -51,3 +41,8 @@ F_net = FOR3
 F_g= FG
 
 F_n = HHK2
+
+
+
+Explicacion de algunas lineas
+.2f indica el inicio del especificador de formato
