@@ -46,3 +46,53 @@ F_n = HHK2
 
 Explicacion de algunas lineas
 .2f indica el inicio del especificador de formato
+
+Esta es la explicacion de cada def
+1. CP4(RACH2)
+Esta función calcula el peso de un objeto en la Tierra, dado su masa.
+•	Parámetro: 
+o	RACH2: Representa la masa del objeto (en kilogramos).
+•	Cálculo: Multiplica la masa (RACH2) por la aceleración debida a la gravedad (GR1), que es aproximadamente 9.8 m/s².
+•	Retorno: Devuelve el peso del objeto en Newtons (N).
+2. CF2(RACH2, ATZ7)
+Esta función calcula la componente horizontal de la fuerza que actúa sobre un objeto en un plano inclinado.
+•	Parámetros: 
+o	RACH2: Masa del objeto (en kilogramos).
+o	ATZ7: Ángulo de inclinación (en grados).
+•	Cálculo: 
+o	Llama a CP4(RACH2) para obtener el peso del objeto (FG).
+o	Convierte el ángulo de inclinación de grados a radianes (TH1).
+o	Calcula la componente horizontal de la fuerza (FP2) usando la función coseno.
+•	Retorno: Devuelve la componente horizontal de la fuerza en Newtons (N).
+3. FRE3(RACH2, ATZ7, CF01)
+Esta función calcula una fuerza resultante multiplicando una constante por la componente horizontal de la fuerza.
+•	Parámetros: 
+o	RACH2: Masa del objeto (en kilogramos).
+o	ATZ7: Ángulo de inclinación (en grados).
+o	CF01: Una constante que representa algún tipo de factor de ajuste o coeficiente.
+•	Cálculo: 
+o	Llama a CF2(RACH2, ATZ7) para obtener la componente horizontal de la fuerza (HHK2).
+o	Multiplica CF01 por HHK2 para obtener la fuerza resultante.
+•	Retorno: Devuelve la fuerza resultante en Newtons (N).
+4. HOD9(RACH2, ATZ7, CF01)
+Esta función calcula la diferencia entre la componente vertical de la fuerza y la fuerza resultante.
+•	Parámetros: 
+o	RACH2: Masa del objeto (en kilogramos).
+o	ATZ7: Ángulo de inclinación (en grados).
+o	CF01: Una constante que representa algún tipo de factor de ajuste o coeficiente.
+•	Cálculo: 
+o	Llama a CP4(RACH2) para obtener el peso del objeto (FG).
+o	Calcula la componente vertical de la fuerza (FP2) usando la función seno.
+o	Llama a FRE3(RACH2, ATZ7, CF01) para obtener la fuerza resultante (FO2).
+o	Calcula la diferencia entre la componente vertical de la fuerza y la fuerza resultante.
+•	Retorno: Devuelve la diferencia en Newtons (N).
+5. CA4(RACH2, ATZ7, CF01)
+Esta función calcula una relación entre la diferencia de fuerzas y la masa del objeto.
+•	Parámetros: 
+o	RACH2: Masa del objeto (en kilogramos).
+o	ATZ7: Ángulo de inclinación (en grados).
+o	CF01: Una constante que representa algún tipo de factor de ajuste o coeficiente.
+•	Cálculo: 
+o	Llama a HOD9(RACH2, ATZ7, CF01) para obtener la diferencia de fuerzas (FOR3).
+o	Divide esta diferencia por la masa del objeto (RACH2).
+•	Retorno: Devuelve el resultado de la división, que puede interpretarse como una aceleración o una relación de fuerzas.
