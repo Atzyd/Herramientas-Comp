@@ -122,3 +122,17 @@ IL23 → Fuerza normal
 KOL5 → Fuerza de fricción
 FN23 → Fuerza neta
 AC34 → Aceleración del objeto
+
+Resumen del Código
+ Organiza los cálculos en funciones reutilizables.
+ Usa input() para recibir datos del usuario.
+ Aplica fórmulas físicas en cada función.
+ Muestra resultados formateados con print(f"{variable:.2f}").
+ Maneja errores con try-except.
+
+///////////////
+
+if __name__ == "__main__":
+    main()
+ Asegura que el programa solo se ejecute si se ejecuta directamente (python archivo.py), evitando que corra si se importa como módulo en otro script.
+
