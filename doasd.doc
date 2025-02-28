@@ -96,3 +96,29 @@ o	CF01: Una constante que representa algún tipo de factor de ajuste o coeficien
 o	Llama a HOD9(RACH2, ATZ7, CF01) para obtener la diferencia de fuerzas (FOR3).
 o	Divide esta diferencia por la masa del objeto (RACH2).
 •	Retorno: Devuelve el resultado de la división, que puede interpretarse como una aceleración o una relación de fuerzas.
+
+Unidad de Entrada (Datos ingresados por el usuario)
+Estas variables almacenan los valores ingresados por el usuario mediante input().
+
+RACH2 → Masa del objeto (kg)
+ATZ7 → Ángulo del plano inclinado (grados)
+CF01 → Coeficiente de fricción
+opcion → Opción seleccionada por el usuario en el menú
+Unidad de Proceso o Lógica Aritmética (Cálculo de resultados)
+Estas variables participan en operaciones matemáticas dentro de funciones.
+
+GR1 → Gravedad (9.8 m/s²)
+FG → Peso del objeto (masa * gravedad)
+TH1 → Conversión del ángulo a radianes
+FP2 → Componente de la fuerza perpendicular
+HHK2 → Resultado de CF2, utilizado en FRE3
+FO2 → Resultado de FRE3, usado en HOD9
+FOR3 → Resultado de HOD9, usado en CA4
+Unidad de Salida (Resultados mostrados en pantalla)
+Estas variables contienen los resultados de los cálculos y se imprimen en pantalla.
+
+PS02 → Peso del objeto
+IL23 → Fuerza normal
+KOL5 → Fuerza de fricción
+FN23 → Fuerza neta
+AC34 → Aceleración del objeto
