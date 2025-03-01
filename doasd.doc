@@ -5,30 +5,29 @@ Masa = RACH2 = m
 Angulo = ATZ7
 Peso = PS02
 
-
 Parametros
 
-calcular_aceleracion= CA4
+calcular aceleracion= CA4
 
-calcular_peso= CP4
+calcular peso= CP4
 
-calcular_fuerza_normal= CF2
+calcular fuerza normal= CF2
 
-calcular_fuerza_net = HOD9
+calcular fuerza neta = HOD9
 
-fuerza_friccion = KOL5
+fuerza friccion = KOL5
 
- calcular_fuerza_friccion=FRE3
+ calcular fuerza friccion=FRE3
 
-coef_friccion = CF01
+coef friccion = CF01
 
-F_perpendicular (Fuerza perpendicular  en plano inclinado)=FP2
+Fuerza perpendicular (Fuerza perpendicular  en plano inclinado)=FP2
 
-F_friccion = FO2
+Fuerza friccion = FO2
 
-F_paralela = FP2
+Fuerza paralela = FP2
 
-fuerza_normal = IL23
+fuerza normal = IL23
 
 aceleracion = AC34
 
@@ -36,12 +35,11 @@ theta= TH1
 
 fuerza_neta = FN23
 
-F_net = FOR3
+Fuerza net = FOR3
 
-F_g= FG
+Fuerza g= FG
 
-F_n = HHK2
-
+Fuerza n = HHK2
 
 
 Explicacion de algunas lineas
