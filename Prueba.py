@@ -1,50 +1,127 @@
 import math
 
-def calcular_peso(masa):
-    g = 9.8  
-    return masa * g
-
-def calcular_fuerza_normal(masa, angulo):
-    g = 9.8
-    F_g = calcular_peso(masa)
-    theta = math.radians(angulo)
-    F_perpendicular = F_g * math.cos(theta)
-    return F_perpendicular
-
-def calcular_fuerza_friccion(masa, angulo, coef_friccion):
-    F_n = calcular_fuerza_normal(masa, angulo)
-    return coef_friccion * F_n
-
-def main():
-    print("Seleccione qué desea calcular:")
-    print("1. Peso")
-    print("2. Fuerza Normal")
-    print("3. Fuerza de Fricción")
+def calcular_fuerzas(masa=None, angulo=None, coef_frict=None, velocidad_inicial=None, velocidad_final=None, tiempo=None, distancia=None, desde_arriba=True):
+    """
+    Calcula todas las fuerzas y parámetros en un plano inclinado.
+    """
+    g = 9.8  # Gravedad (m/s^2)
+    if angulo is None:
+        raise ValueError("El ángulo del plano inclinado es obligatorio para los cálculos.")
     
-    opcion = input("Ingrese el número de la opción deseada: ")
-
-    try:
-        masa = float(input("Ingrese la masa del objeto (kg): "))
-        angulo = float(input("Ingrese el ángulo del plano inclinado (grados): "))
-
-        if opcion == '1':
-            peso = calcular_peso(masa)
-            print(f"El peso del objeto es: {peso:.2f} N")
-        
-        elif opcion == '2':
-            fuerza_normal = calcular_fuerza_normal(masa, angulo)
-            print(f"La fuerza normal es: {fuerza_normal:.2f} N")
-        
-        elif opcion == '3':
-            coef_friccion = float(input("Ingrese el coeficiente de fricción: "))
-            fuerza_friccion = calcular_fuerza_friccion(masa, angulo, coef_friccion)
-            print(f"La fuerza de fricción es: {fuerza_friccion:.2f} N")
-        
+    angulo_rad = math.radians(angulo)
+    
+    # Calcular peso y sus componentes si se conoce la masa
+    if masa is not None:
+        peso = masa * g
+        W_paralelo = peso * math.sin(angulo_rad)
+        W_perpendicular = peso * math.cos(angulo_rad)
+        N = W_perpendicular  # Fuerza normal
+    else:
+        peso = W_paralelo = W_perpendicular = N = None
+    
+    # Calcular fuerza de fricción si hay coeficiente de fricción y la fuerza normal está definida
+    F_friccion = 0
+    if coef_frict is not None and N is not None:
+        F_friccion = coef_frict * N
+    
+    # Determinar la dirección del movimiento
+    direccion = -1 if velocidad_inicial and velocidad_inicial > 0 and not desde_arriba else 1
+    
+    # Calcular aceleración considerando la fricción
+    if masa is not None:
+        # Si se proporciona la masa, calculamos la aceleración considerando la fricción
+        aceleracion = direccion * (W_paralelo - F_friccion) / masa  # Se asegura de restar correctamente la fricción
+    else:
+        # Si no se proporciona la masa, solo depende de la gravedad y el ángulo, sin fricción
+        aceleracion = direccion * g * math.sin(angulo_rad)
+    
+    # Calcular distancia si no se proporciona
+    if distancia is None and velocidad_inicial is not None and velocidad_final is not None:
+        if aceleracion != 0:
+            distancia = (velocidad_inicial**2 - velocidad_final**2) / (2 * abs(aceleracion))
         else:
-            print("Opción no válida. Por favor, seleccione 1, 2 o 3.")
+            distancia = 0
+    
+    # Calcular tiempo si no se proporciona
+    if tiempo is None and velocidad_inicial is not None and velocidad_final is not None:
+        if aceleracion != 0:
+            tiempo = abs((velocidad_final - velocidad_inicial) / aceleracion)
+    
+    # Calcular fuerza neta
+    F_neta = W_paralelo - F_friccion  # Corregido para reflejar la suma correcta de fuerzas
+    
+    # Calcular cambio de energía cinética
+    if masa is not None and velocidad_inicial is not None and velocidad_final is not None:
+        energia_cinetica_inicial = 0.5 * masa * velocidad_inicial**2
+        energia_cinetica_final = 0.5 * masa * velocidad_final**2
+        cambio_energia_cinetica = energia_cinetica_final - energia_cinetica_inicial
+    else:
+        cambio_energia_cinetica = None
+    
+    # Calcular cambio de energía potencial
+    if masa is not None and distancia is not None:
+        cambio_energia_potencial = masa * g * distancia * math.sin(angulo_rad)
+    else:
+        cambio_energia_potencial = None
+    
+    return {
+        "Masa (kg)": masa,
+        "Peso (N)": peso,
+        "Fuerza Normal (N)": N,
+        "Fuerza de Fricción (N)": F_friccion,
+        "Fuerza Neta (N)": F_neta,
+        "Coeficiente de Fricción": coef_frict,
+        "Aceleración (m/s^2)": aceleracion,
+        "Velocidad Inicial (m/s)": velocidad_inicial,
+        "Velocidad Final (m/s)": velocidad_final,
+        "Distancia Recorrida (m)": distancia,
+        "Ángulo de Inclinación (grados)": angulo,
+        "Tiempo (s)": tiempo,
+        "Cambio de Energía Cinética (J)": cambio_energia_cinetica,
+        "Cambio de Energía Potencial (J)": cambio_energia_potencial
+    }
 
-    except ValueError:
-        print("Por favor, ingrese valores numéricos válidos.")
+def obtener_datos():
+    def leer_float(mensaje):
+        while True:
+            try:
+                valor = input(mensaje).strip()
+                if valor == "":
+                    return None
+                return float(valor)
+            except ValueError:
+                print("Entrada no válida. Por favor, ingrese un número válido.")
+
+    return {
+        "masa": leer_float("Ingrese la masa del objeto (kg) o presione Enter si no la conoce: "),
+        "angulo": leer_float("Ingrese el ángulo del plano inclinado (grados): "),
+        "coef_frict": leer_float("Ingrese el coeficiente de fricción o presione Enter para calcularlo: "),
+        "velocidad_inicial": leer_float("Ingrese la velocidad inicial del objeto (m/s) o presione Enter si no la conoce: "),
+        "velocidad_final": leer_float("Ingrese la velocidad final del objeto (m/s) o presione Enter si no la conoce: "),
+        "tiempo": leer_float("Ingrese el tiempo de movimiento (s) o presione Enter para calcularlo: "),
+        "distancia": leer_float("Ingrese la distancia recorrida en la rampa (m) o presione Enter para calcularla: "),
+        "desde_arriba": input("¿El objeto se lanza desde arriba del plano inclinado? (s/n): ").strip().lower() == 's'
+    }
 
 if __name__ == "__main__":
-    main()
+    try:
+        datos = obtener_datos()
+        
+        # Calcular las fuerzas y resultados
+        resultados = calcular_fuerzas(
+            datos["masa"],
+            datos["angulo"],
+            datos["coef_frict"],
+            datos["velocidad_inicial"],
+            datos["velocidad_final"],
+            datos["tiempo"],
+            datos["distancia"],
+            datos["desde_arriba"]
+        )
+        
+        # Mostrar los resultados
+        print("\nResultados:")
+        for clave, valor in resultados.items():
+            print(f"{clave}: {valor:.2f}" if isinstance(valor, (int, float)) else f"{clave}: No calculado")
+    except Exception as e:
+        print(f"Se produjo un error: {e}")
