@@ -12,7 +12,7 @@ def calcular_fuerzas(masa, angulo, coef_frict, velocidad_inicial, tiempo, distan
     # Gravedad (m/s^2)
     g = 9.81
 
-    # Calcular el peso del objeto
+    #Operacion de el peso
     peso = masa * g
 
     # Calcular las fuerzas
