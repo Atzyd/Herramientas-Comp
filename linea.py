@@ -1,3 +1,4 @@
+#Libreria para los calculos matematicos-Ejemplo convertir grados a radianes y calcular las funciones trigonometricas
 import math
 
 def calcular_fuerzas(masa=None, angulo=None, coef_frict=None, velocidad_inicial=None, velocidad_final=None, tiempo=None, distancia=None, desde_arriba=True):
@@ -8,6 +9,7 @@ def calcular_fuerzas(masa=None, angulo=None, coef_frict=None, velocidad_inicial=
     if angulo is None:
         raise ValueError("El ángulo del plano inclinado es obligatorio para los cálculos.")
     
+    #Cambio de angulos a radianes
     angulo_rad = math.radians(angulo)
     
     # Calcular peso y sus componentes si se conoce la masa
@@ -24,7 +26,7 @@ def calcular_fuerzas(masa=None, angulo=None, coef_frict=None, velocidad_inicial=
     if coef_frict is not None and N is not None:
         F_friccion = coef_frict * N
     
-    # Determinar la dirección del movimiento
+    # Depende de la direccion se arroja el signo negativo o posivo:)
     direccion = -1 if velocidad_inicial and velocidad_inicial > 0 and not desde_arriba else 1
     
     # Calcular aceleración considerando la fricción
@@ -45,12 +47,12 @@ def calcular_fuerzas(masa=None, angulo=None, coef_frict=None, velocidad_inicial=
     # Calcular tiempo si no se proporciona
     if tiempo is None and velocidad_inicial is not None and velocidad_final is not None:
         if aceleracion != 0:
-            # Nueva ecuación del tiempo con fricción incluida
+            
             tiempo = abs(velocidad_inicial / (g * (math.sin(angulo_rad) + coef_frict * math.cos(angulo_rad))))
     
     # Calcular fuerza neta
-    F_neta = W_paralelo - F_friccion  # Corregido para reflejar la suma correcta de fuerzas
-    
+    F_neta = W_paralelo - F_friccion  
+
     # Calcular cambio de energía cinética
     if masa is not None and velocidad_inicial is not None and velocidad_final is not None:
         energia_cinetica_inicial = 0.5 * masa * velocidad_inicial**2
@@ -81,7 +83,7 @@ def calcular_fuerzas(masa=None, angulo=None, coef_frict=None, velocidad_inicial=
         "Cambio de Energía Cinética (J)": cambio_energia_cinetica,
         "Cambio de Energía Potencial (J)": cambio_energia_potencial
     }
-
+#Ingreso de datos Y manejo de errores :))))
 def obtener_datos():
     def leer_float(mensaje):
         while True:
